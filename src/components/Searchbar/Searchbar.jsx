@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './Seachbar.module.css';
-// import { FiSearch } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 
 export function Searchbar ({onSubmit}) {
 
@@ -22,7 +22,7 @@ export function Searchbar ({onSubmit}) {
       <header className={css.searchbar}>
         <form className={css.searchForm} onSubmit={handleSubmit}>
           <button type="submit" className={css.searchForm_button}>
-            <span >Search</span>
+            <span ><FiSearch/>/</span>
           </button>
 
           <input className={css.searchForm_input}

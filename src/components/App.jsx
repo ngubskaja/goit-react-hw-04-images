@@ -67,7 +67,7 @@ export function App () {
         <Searchbar onSubmit={handleSubmit} />
         <ImageGallery images={images} onClick={toggleModal} />
         {status === 'loading' && <Loader />}
-        {images.length > 11 && <Button loadMore={loadMore} />}
+        {status === 'finished' && <Button loadMore={loadMore} />}
         {modalImg && <Modal image={modalImg} onClose={toggleModal} />}
         <ToastContainer />
       </div>

@@ -7,7 +7,6 @@ axios.defaults.baseURL = "https://pixabay.com/api/";
   orientation: 'horizontal',
   safesearch: 'true',
   per_page: 12,
-  isImageModalOpen: false,
 };
 
 export const fetchImages = async (query, page) => {
