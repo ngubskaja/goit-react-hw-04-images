@@ -80,7 +80,7 @@ export function App () {
         {error && toast.error('Oops! Something went wrong! Please try again.')}
         {totalPage < 1 && <Button loadMore={loadMore} />}
         {showModal && <Modal image={modalImg} onClose={closeModal} />}
-        <ToastContainer />
+        <ToastContainer/>
       </div>
     );
   }
