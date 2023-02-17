@@ -12,22 +12,24 @@ import { Modal } from './Modal/Modal';
 export function App () {
 
  const [query, setQuery] = useState('');
- const [status, setStatus] = useState('idle');
  const [page, setPage] = useState(1);
  const [images, setImages] = useState([]);
- const [modalImg, setModalImg] = useState('');
+ const [modalImg, setModalImg] = useState(null);
+ const [isLoading, setIsLoading] = useState(false);
+ const [error, setError] = useState('');
+ const [total, setTotal] = useState(0);
+ const [showModal, setShowModal] = useState(false);
 
 
 
    useEffect(() => {
-    if(query === ''){
-      setStatus('idle');
+    if(!query ){
       return;
     }
 
   const fetchData = async () => {
     try {
-      setStatus ('loading');
+      setIsLoading(true)
       const res = await fetchImages (query, page)
       if(res.total === 0) {
         toast.error(
@@ -35,11 +37,14 @@ export function App () {
         )
       }
       setImages(prevState => [...prevState, ...res.hits])
-      setStatus('finished')
+      setTotal(res.totalHits)
     }
     catch(error) {
-      toast.error('Oops! Something went wrong! Please try again.')
-      setStatus('idle')
+      setError(error)
+      
+    }
+    finally{
+      setIsLoading(false)
     }
   }
   fetchData();
@@ -57,22 +62,29 @@ export function App () {
     setPage(prevState => prevState + 1)
    }
 
-   const toggleModal = (image) => {
+   const openModal = (image) => {
+    setShowModal(true)
     setModalImg(image)
    }
-  
+    
+   const closeModal = () => {
+    setShowModal(false)
+    setModalImg(null)
+   }
 
+  
+    const totalPage = images.length / total
     return (
       <div>
         <Searchbar onSubmit={handleSubmit} />
-        <ImageGallery images={images} onClick={toggleModal} />
-        {status === 'loading' && <Loader />}
-        {status === 'finished' && <Button loadMore={loadMore} />}
-        {modalImg && <Modal image={modalImg} onClose={toggleModal} />}
+        <ImageGallery images={images} onClick={openModal}/>
+        {isLoading  && <Loader />}
+        {error && toast.error('Oops! Something went wrong! Please try again.')}
+        {totalPage < 1 && <Button loadMore={loadMore} />}
+        {showModal && <Modal image={modalImg} onClose={closeModal} />}
         <ToastContainer />
       </div>
     );
   }
-
 
 
