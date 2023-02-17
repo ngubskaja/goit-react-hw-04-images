@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import css from './Seachbar.module.css';
 import { FiSearch } from 'react-icons/fi';
 import { IconContext } from "react-icons";
