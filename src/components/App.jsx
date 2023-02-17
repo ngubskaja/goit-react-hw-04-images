@@ -71,8 +71,6 @@ export function App () {
     setShowModal(false)
     setModalImg(null)
    }
-
-  
     const totalPage = images.length / total
     return (
       <div>
