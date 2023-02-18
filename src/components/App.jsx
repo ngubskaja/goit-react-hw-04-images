@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Searchbar } from './Searchbar/Searchbar';
 import { fetchImages } from '../Services/Api';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -78,7 +79,7 @@ export function App () {
         <ImageGallery images={images} onClick={openModal}/>
         {isLoading  && <Loader />}
         {error && toast.error('Oops! Something went wrong! Please try again.')}
-        {totalPage < 1 && <Button loadMore={loadMore} />}
+        {totalPage < 1 &&!isLoading && <Button loadMore={loadMore} />}
         {showModal && <Modal image={modalImg} onClose={closeModal} />}
         <ToastContainer/>
       </div>
